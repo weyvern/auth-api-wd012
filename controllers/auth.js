@@ -37,3 +37,11 @@ export const getUserInfo = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const approvedSession = async (req, res) => {
+  try {
+    res.json({ success: 'Valid token' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

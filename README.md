@@ -99,3 +99,13 @@ npm start
   "address": String
 }
 ```
+
+- GET /auth/verify-session (send token in request header as **token**)
+
+-- Sample response:
+
+```json
+{
+  "success": "Valid token"
+}
+```

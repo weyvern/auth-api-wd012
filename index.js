@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import 'dotenv/config.js';
+import './db/mongoose.js';
 import authRouter from './routes/auth.js';
 
 const app = express();

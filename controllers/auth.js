@@ -19,7 +19,7 @@ export const signUp = async (req, res) => {
 export const signIn = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const foundUser = await User.findOne({ email });
+    const foundUser = await User.findOne({ email }).select('+password');
     if (!foundUser) throw new Error('User does not exist');
     const match = await bcrypt.compare(password, foundUser.password);
     if (!match) throw new Error('Password is incorrect');

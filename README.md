@@ -15,7 +15,10 @@ npm install
 
 ## Environment
 
-Create a .env file with a MONGO_URI variable, it has to be a valid MongoDB connection string.
+Create a .env file with:
+
+- MONGO_URI variable, it has to be a valid MongoDB connection string.
+- JWT_SECRET
 
 # Commands
 

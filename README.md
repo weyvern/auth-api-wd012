@@ -19,6 +19,7 @@ Create a .env file with:
 
 - MONGO_URI variable, it has to be a valid MongoDB connection string.
 - JWT_SECRET
+- ORIGIN (for CORS)
 
 # Commands
 

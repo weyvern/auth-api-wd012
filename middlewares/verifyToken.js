@@ -3,7 +3,7 @@ import User from '../models/User.js';
 
 const verifyToken = async (req, res, next) => {
   try {
-    const { token } = req.headers;
+    const { token } = req.cookies;
     if (!token) throw new Error('Unauthorized');
     const { _id } = jwt.verify(token, process.env.JWT_SECRET);
     const foundUser = await User.findOne({ _id });

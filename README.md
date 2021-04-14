@@ -62,11 +62,11 @@ npm start
 }
 ```
 
--- Sample response:
+-- Sample response (token is returned as cookie)
 
 ```json
 {
-  "token": String
+  "successs": String
 }
 ```
 
@@ -81,15 +81,15 @@ npm start
 }
 ```
 
--- Sample response:
+-- Sample response (token is returned as cookie)
 
 ```json
 {
-  "token": String
+  "success": String
 }
 ```
 
-- GET /auth/me (send token in request header as **token**)
+- GET /auth/me (send token in as cookie as **token**)
 
 -- Sample response:
 
@@ -101,7 +101,7 @@ npm start
 }
 ```
 
-- GET /auth/verify-session (send token in request header as **token**)
+- GET /auth/verify-session (send token in as cookie as **token**)
 
 -- Sample response:
 
@@ -114,6 +114,6 @@ npm start
 # Topics
 
 - [x] Express validator vs JOI
-- [] Custom error handler
-- [] Custom async function handler
+- [x] Custom error handler
+- [x] Custom async function handler
 - [] New resource posts/orders

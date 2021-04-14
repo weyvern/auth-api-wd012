@@ -1,12 +1,13 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import ErrorResponse from '../utils/ErrorResponse.js';
 import User from '../models/User.js';
 
-export const signUp = async (req, res) => {
+export const signUp = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
     const foundUser = await User.findOne({ email });
-    if (foundUser) throw new Error('Email already taken');
+    if (foundUser) throw new ErrorResponse('Email already taken', 403);
     const hashPassword = await bcrypt.hash(password, 5);
     const { _id, name: userName } = await User.create({ name, email, password: hashPassword });
     const token = jwt.sign({ _id, userName }, process.env.JWT_SECRET);
@@ -16,11 +17,11 @@ export const signUp = async (req, res) => {
     }
     res.cookie('token', token, cookieOps).json({ success: 'User created' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
-export const signIn = async (req, res) => {
+export const signIn = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const foundUser = await User.findOne({ email }).select('+password');
@@ -35,9 +36,9 @@ export const signIn = async (req, res) => {
     if (process.env.NODE_ENV === 'production') {
       cookieOps.secure = true;
     }
-    res.cookie('token', token, cookieOps).json({ success: 'User created' });
+    res.cookie('token', token, cookieOps).json({ success: 'Logged in' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
@@ -45,7 +46,7 @@ export const getUserInfo = async (req, res) => {
   try {
     res.send(req.user);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
@@ -53,6 +54,6 @@ export const approvedSession = async (req, res) => {
   try {
     res.json({ success: 'Valid token' });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };

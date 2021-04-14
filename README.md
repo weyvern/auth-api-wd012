@@ -110,3 +110,10 @@ npm start
   "success": "Valid token"
 }
 ```
+
+# Topics
+
+- [x] Express validator vs JOI
+- [] Custom error handler
+- [] Custom async function handler
+- [] New resource posts/orders

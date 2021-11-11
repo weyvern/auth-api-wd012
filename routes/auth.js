@@ -8,16 +8,11 @@ import checkForErrors from '../middlewares/checkForErrors.js';
 
 const authRouter = express.Router();
 
-authRouter.use(express.json());
-
 authRouter.post('/signup', validateJOI(signUpBody), signUp);
-
 authRouter.post(
   '/signin',
   body('email').exists().isEmail(),
-  body('password')
-    .exists()
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, 'i'),
+  body('password').exists().isString(),
   checkForErrors,
   signIn
 );

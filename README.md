@@ -57,16 +57,15 @@ npm start
 {
   "name": String,
   "email": String,
-  "password": String,
-  "address": String
+  "password": String
 }
 ```
 
--- Sample response (token is returned as cookie)
+-- Sample response
 
 ```json
 {
-  "successs": String
+  "token": JWTString
 }
 ```
 
@@ -81,27 +80,27 @@ npm start
 }
 ```
 
--- Sample response (token is returned as cookie)
+-- Sample response
 
 ```json
 {
-  "success": String
+  "token": JWTString
 }
 ```
 
-- GET /auth/me (send token in as cookie as **token**)
+- GET /auth/me (send token in header as "Authorization")
 
 -- Sample response:
 
 ```json
 {
+  "_id": String,
   "name": String,
-  "email": String,
-  "address": String
+  "email": String
 }
 ```
 
-- GET /auth/verify-session (send token in as cookie as **token**)
+- GET /auth/verify-session (send token in header as "Authorization")
 
 -- Sample response:
 
@@ -110,10 +109,3 @@ npm start
   "success": "Valid token"
 }
 ```
-
-# Topics
-
-- [x] Express validator vs JOI
-- [x] Custom error handler
-- [x] Custom async function handler
-- [] New resource posts/orders

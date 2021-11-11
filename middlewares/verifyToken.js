@@ -3,9 +3,11 @@ import User from '../models/User.js';
 
 const verifyToken = async (req, res, next) => {
   try {
-    const { token } = req.cookies;
-    if (!token) throw new Error('Unauthorized');
-    const { _id } = jwt.verify(token, process.env.JWT_SECRET);
+    const {
+      headers: { authorization }
+    } = req;
+    if (!authorization) throw new Error('Unauthorized');
+    const { _id } = jwt.verify(authorization, process.env.JWT_SECRET);
     const foundUser = await User.findOne({ _id });
     if (!foundUser) throw new Error('User does not exist');
     req.user = foundUser;

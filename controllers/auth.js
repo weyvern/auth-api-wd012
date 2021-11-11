@@ -11,11 +11,7 @@ export const signUp = asyncHandler(async (req, res, next) => {
   const hashPassword = await bcrypt.hash(password, 5);
   const { _id, name: userName } = await User.create({ name, email, password: hashPassword });
   const token = jwt.sign({ _id, userName }, process.env.JWT_SECRET);
-  const cookieOps = {};
-  if (process.env.NODE_ENV === 'production') {
-    cookieOps.secure = true;
-  }
-  res.cookie('token', token, cookieOps).json({ success: 'User created' });
+  res.json({ token });
 });
 
 export const signIn = asyncHandler(async (req, res, next) => {
@@ -25,11 +21,7 @@ export const signIn = asyncHandler(async (req, res, next) => {
   const match = await bcrypt.compare(password, foundUser.password);
   if (!match) throw new Error('Password is incorrect');
   const token = jwt.sign({ _id: foundUser._id, userName: foundUser.name }, process.env.JWT_SECRET);
-  const cookieOps = {};
-  if (process.env.NODE_ENV === 'production') {
-    cookieOps.secure = true;
-  }
-  res.cookie('token', token, cookieOps).json({ success: 'Logged in' });
+  res.json({ token });
 });
 
 export const getUserInfo = asyncHandler(async (req, res) => {
